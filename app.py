@@ -2,11 +2,12 @@ from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 from joke import joke
 import requests
-# from cleverwrap import CleverWrap
+from cleverwrap import CleverWrap
+
+cw = CleverWrap("API_KEY")
 
 app = Flask(__name__)
 
-# cleverbot_API = CleverWrap("INSERT YOUR API KEY")
 
 @app.route("/")
 def hello():
@@ -16,8 +17,8 @@ def hello():
 def sms_reply():
     resp = MessagingResponse()
     msg = request.form.get("Body")
-    # cleverbot_response = cleverbot_API.say(msg)
 
+    bot_resp = cw.say(msg)
     url = "https://icanhazdadjoke.com/search"
 
     res = requests.get(
@@ -31,9 +32,7 @@ def sms_reply():
         resp.message(f"היי מה קורה? תשלח לי נושא בדיחה באנגלית ואשלח לך בדיחה!!!")
     else:
         resp.message(joke(msg, res))
-    return str(resp)
-    # resp.message(cleverbot_response)
-    # return str(resp)
+    return str(bot_resp)
 
 if __name__ == "__main__":
     app.run(debug=True)
