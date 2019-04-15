@@ -19,6 +19,7 @@ def sms_reply():
     msg = request.form.get("Body")
 
     bot_resp = cw.say(msg)
+    resp.message(bot_resp)
     url = "https://icanhazdadjoke.com/search"
 
     res = requests.get(
@@ -32,7 +33,7 @@ def sms_reply():
         resp.message(f"היי מה קורה? תשלח לי נושא בדיחה באנגלית ואשלח לך בדיחה!!!")
     else:
         resp.message(joke(msg, res))
-    return str(bot_resp)
+    return str(resp)
 
 if __name__ == "__main__":
     app.run(debug=True)
