@@ -16,3 +16,4 @@ twilio==6.26.1
 urllib3==1.24.1
 Werkzeug==0.15.2
 dialogflow==0.5.2
+cleverwrap==0.2.3.6
